@@ -28,40 +28,30 @@ module "sg" {
   vpc_id                   = module.vpc.vpc_id
   ingress_cidr_blocks      = ["0.0.0.0/0"]
   ingress_ipv6_cidr_blocks = ["::/0"]
-  ingress_rules            = ["all-icmp", "https-443-tcp", "http-80-tcp", "ssh-tcp"]
-  ingress_with_cidr_blocks = [
-    {
-      description = "Bash scraping service"
-      from_port   = 8000
-      to_port     = 8000
-      protocol    = "tcp"
-    },
-  ]
-  ingress_with_ipv6_cidr_blocks = [
-    {
-      description = "Bash scraping service"
-      from_port   = 8000
-      to_port     = 8000
-      protocol    = "tcp"
-    },
+  ingress_rules = [
+    "all-icmp",
+    "http-80-tcp",
+    "https-443-tcp",
+    "http-8080-tcp",
+    "ssh-tcp"
   ]
 }
 
-#resource "aws_default_security_group" "default" {
-#}
+# module "ec2" {
+#   source                      = "terraform-aws-modules/ec2-instance/aws"
+#   version                     = "2.15.0"
+#   name                        = "jenkins"
+#   instance_type               = "t2.micro"
+#   associate_public_ip_address = true
+#   ami                         = "ami-0c115dbd34c69a004"
+#   subnet_ids                  = module.vpc.public_subnets
+#   vpc_security_group_ids = [
+#     module.sg.this_security_group_id,
+#     module.vpc.default_security_group_id
+#   ]
 
-module "ec2" {
-  source                      = "terraform-aws-modules/ec2-instance/aws"
-  version                     = "2.15.0"
-  name                        = "jenkins"
-  instance_type               = "t2.micro"
-  associate_public_ip_address = true
-  ami                         = "ami-0c115dbd34c69a004"
-  subnet_ids                  = module.vpc.public_subnets
-  vpc_security_group_ids = [
-    module.sg.this_security_group_id,
-    module.vpc.default_security_group_id
-  ]
-
-  key_name = var.key_name
-}
+#   key_name = var.key_name
+#   provisioner "remote-exec" {
+#     inline = ["sudo yum -y install python"]
+#   }
+# }
