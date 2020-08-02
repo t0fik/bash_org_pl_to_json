@@ -22,3 +22,12 @@
         name: docker-compose@jenkins
         enabled: yes
         state: started
+    - name: Wait for Jenkins to start
+      wait_for:
+        path: "{{jenkins.home}}/secrets/initialAdminPassword"
+        state: present
+    - name: Fetch initial password
+      fetch:
+        src: "{{jenkins.home}}/secrets/initialAdminPassword"
+        dest: "{{tf_initialAdminPass}}/"
+        flat: yes

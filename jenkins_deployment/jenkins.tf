@@ -26,7 +26,12 @@ resource "aws_instance" "jenkins" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -u ${var.user_name} --private-key ${var.private_key} -i '${self.public_ip},' ansible/install_jenkins.yaml"
+    command = <<EOT
+      export ANSIBLE_HOST_KEY_CHECKING=False;
+      ansible-playbook -u ${var.user_name} --private-key ${var.private_key} -i '${self.public_ip},' \
+        --extra-vars 'tf_initialAdminPass=/tmp/${self.id}' ansible/install_jenkins.yaml
+    EOT
   }
 
 }
+

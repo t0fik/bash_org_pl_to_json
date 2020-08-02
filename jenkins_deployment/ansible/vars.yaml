@@ -7,6 +7,4 @@ compose:
 
 jenkins:
   home: /var/lib/jenkins
-
-docker:
-  binary: /usr/bin/docker
+  image: 'jenkins/jenkins:lts'
