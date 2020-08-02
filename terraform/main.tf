@@ -36,22 +36,3 @@ module "sg" {
     "ssh-tcp"
   ]
 }
-
-# module "ec2" {
-#   source                      = "terraform-aws-modules/ec2-instance/aws"
-#   version                     = "2.15.0"
-#   name                        = "jenkins"
-#   instance_type               = "t2.micro"
-#   associate_public_ip_address = true
-#   ami                         = "ami-0c115dbd34c69a004"
-#   subnet_ids                  = module.vpc.public_subnets
-#   vpc_security_group_ids = [
-#     module.sg.this_security_group_id,
-#     module.vpc.default_security_group_id
-#   ]
-
-#   key_name = var.key_name
-#   provisioner "remote-exec" {
-#     inline = ["sudo yum -y install python"]
-#   }
-# }
