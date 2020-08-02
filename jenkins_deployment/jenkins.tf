@@ -26,7 +26,7 @@ resource "aws_instance" "jenkins" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -u ${var.user_name} --private-key ${var.private_key} -i '${self.public_ dns},' playbooks/install_jenkins.yaml"
+    command = "ansible-playbook -u ${var.user_name} --private-key ${var.private_key} -i '${self.public_ip},' ansible/install_jenkins.yaml"
   }
 
 }

@@ -1,0 +1,12 @@
+---
+compose:
+  projects_path: /etc/docker/compose
+  docker_binary: /usr/bin/docker
+  binary: /usr/local/bin/docker-compose
+  release: '1.26.2'
+
+jenkins:
+  home: /var/lib/jenkins
+
+docker:
+  binary: /usr/bin/docker

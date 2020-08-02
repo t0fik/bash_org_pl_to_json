@@ -1,0 +1,12 @@
+[Unit]
+Description="Service running docker composed containers"
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart={{compose.binary}} -p %i -f {{compose.projects_path}}/%i/docker-compose.yaml up
+ExecStop={{compose.binary}} -p %i -f {{compose.projects_path}}/%i/docker-compose.yaml down
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - ../vars.yaml
+  tasks:
+    - name: Create jenkins compose poject
+      file:
+        path: "{{compose.projects_path}}/jenkins"
+        state: directory
+        mode: '0755'
+    - name: Genetrate compose file
+      template:
+        src: ../templates/jenkins-docker-compose.yaml.j2
+        dest: /etc/docker/compose/jenkins/docker-compose.yaml
+    - name: Create directory
+      file:
+        path: "{{jenkins.home}}"
+        state: directory
+    - name: Enable jenkins service
+      systemd:
+        name: docker-compose@jenkins
+        enabled: yes
+        state: started
