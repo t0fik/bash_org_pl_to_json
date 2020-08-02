@@ -24,3 +24,9 @@ wheels/
 *.egg
 *.manifest
 *.spec
+
+## Terraform ignores
+.terraform/
+# .tfstate files
+*.tfstate
+*.tfstate.*
