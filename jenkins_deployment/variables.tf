@@ -1,3 +1,8 @@
+variable "aws_profile" {
+  type = string
+  default = "default"
+}
+
 variable "user_name" {
   type = string
   default = "ec2-user"
