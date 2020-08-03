@@ -1,6 +1,7 @@
-pipeline {
+def image_name = "bash-service"
 
-  def image_name = "bash-service"
+pipeline {
+  agent any
 
   stage('Prep') {
     checkout scm
