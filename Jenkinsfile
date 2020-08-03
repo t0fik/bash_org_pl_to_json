@@ -7,7 +7,9 @@ node {
     }
 
     stage('Build') {
-      def image = docker.build("${image_name}:${env.BUILD_ID}")
+      docker {
+        def image = docker.build("${image_name}:${env.BUILD_ID}")
+      }
     }
 
     stage('Deploy') {
