@@ -2,7 +2,6 @@ def image_name = "bash-service"
 
 node {
     stage('Prep') {
-      echo "Some change"
       checkout scm
     }
 
