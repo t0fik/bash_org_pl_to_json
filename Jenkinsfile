@@ -1,8 +1,6 @@
 def image_name = "bash-service"
 
-pipeline {
-  agent any
-  stages {
+node {
     stage('Prep') {
       checkout scm
     }
@@ -15,5 +13,4 @@ pipeline {
       sh 'docker stop ${image_name} || true'
       sh 'docker run --rm -d -t -p 80:8000 --name ${image_name} ${image_name}:${env.BUILD_ID}'
     }
-  }
 }
